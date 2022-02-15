@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter, useHistory } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import { useAuth0 } from '../../contexts/auth0-context';
     
 function Create(): JSX.Element {
-  let history = useHistory();
+  let history = useNavigate();
   const { user, getIdTokenClaims } = useAuth0();
     
   interface IValues {
@@ -33,7 +33,7 @@ function Create(): JSX.Element {
     setValues({...values, formData});
     setLoading(false);
     setTimeout(() => {
-      history.push('/');
+      history('/');
     }, 1500);
   }
     
@@ -105,4 +105,4 @@ function Create(): JSX.Element {
   </div>
   );
 }
-export default withRouter(Create)
+export default (Create)

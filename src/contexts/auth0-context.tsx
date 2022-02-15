@@ -32,17 +32,21 @@ export class Auth0Provider extends Component<{}, IState> {
             auth0Client: Auth0Client,
         };
     }
-    config: Auth0ClientOptions = {
-        domain: `${process.env.REACT_APP_AUTH0_DOMAIN}`,
-        client_id: `${process.env.REACT_APP_AUTH0_CLIENT_ID}`,
-        redirect_uri: window.location.origin
-    };
+    // config: Auth0ClientOptions = {
+    //     domain: `${process.env.REACT_APP_AUTH0_DOMAIN}`,
+    //     client_id: `${process.env.REACT_APP_AUTH0_CLIENT_ID}`,
+    //     redirect_uri: window.location.origin
+    // };
     componentDidMount() {
         this.initializeAuth0();     
     }
     // initialize the auth0 library
     initializeAuth0 = async () => {
-        const auth0Client = await createAuth0Client(this.config);
+        const auth0Client = await createAuth0Client({
+            domain: `${process.env.REACT_APP_AUTH0_DOMAIN}`,
+            client_id: `${process.env.REACT_APP_AUTH0_CLIENT_ID}`,
+            redirect_uri: window.location.origin
+        });
         this.setState({ auth0Client });
         // check to see if they have been redirected after login
         if (window.location.search.includes('code=')) {
