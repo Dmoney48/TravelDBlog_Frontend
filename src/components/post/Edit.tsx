@@ -19,26 +19,28 @@ function Edit(): JSX.Element {
 //   }
 
   interface Post{
-    name:string;
-    message:string;
-    likes: number;
-    dislikes: number;
-    latitude: number;
-    longitude: number;
-    comment: {
-        // user: Object;
-        comment: string;
-        likes: number;
-        dislikes: number;
-      }; //(refs to blogs uniqueId)
-    // user: Object<User>; //(ref to user ID)
-    author: string;
-    date_posted: string;
+    // name:string;
+    // message:string;
+    // likes: number;
+    // dislikes: number;
+    // latitude: number;
+    // longitude: number;
+    // comment: {
+    //     // user: Object;
+    //     comment: string;
+    //     likes: number;
+    //     dislikes: number;
+    //   }; //(refs to blogs uniqueId)
+    // // user: Object<User>; //(ref to user ID)
+    // author: string;
+    // date_posted: string;
+    [key: string]: any;
+    [key: number]: any;
   }
 
   const postState = {
-    name:'',
-    message:'',
+    title:'',
+    description:'',
     likes: 0,
     dislikes: 0,
     latitude: 0,
@@ -51,6 +53,7 @@ function Edit(): JSX.Element {
     // user: Object<User>; //(ref to user ID)
     author: '',
     date_posted: '',
+    image:''
     
   }
     
@@ -80,23 +83,22 @@ function Edit(): JSX.Element {
   const submitForm = async (): Promise<boolean> => {
     try {
       const accessToken = await getIdTokenClaims();
-    //   const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/blog/edit?postID=${postId}`, {
-    //     method: "put",
-    //     headers: new Headers({
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json",
-    //       "authorization": `Bearer ${accessToken.__raw}`
-    //     }),
-    //     body: JSON.stringify(values)
-    //   });
-    //   return response.ok;  
-    console.log(post);   
+      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/blog/edit?postID=${postId}`, {
+        method: "put",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "authorization": `Bearer ${accessToken.__raw}`
+        }),
+        body: JSON.stringify(post)
+      });
+      return response.ok;  
     } catch(ex) {
       return false;
     }
   }
   const setPostValues = (formValues: Post) => {
-    setPost({...values, ...formValues})
+    setPost({...post, ...formValues})
   }
   const handleInputChanges = (e: React.FormEvent<HTMLInputElement>) => {
     setPostValues({ [e.currentTarget.id]: e.currentTarget.value })
@@ -104,7 +106,7 @@ function Edit(): JSX.Element {
     
   
   return (
-    <div className={'page-wrapper'}>
+    <div id="EditRoute" className={'page-wrapper'}>
     {post &&
       <div className={"col-md-12 form-wrapper"}>
         <h2> Edit Post  </h2>
@@ -116,15 +118,19 @@ function Edit(): JSX.Element {
         <form id={"create-post-form"} onSubmit={handleFormSubmission} noValidate={true}>
           <div className="form-group col-md-12">
             <label htmlFor="title"> Title </label>
-            <input type="text" id="name" defaultValue={post.name} onChange={(e) => handleInputChanges(e)} name="title" className="form-control" placeholder="Enter title" />
+            <input type="text" id="title" defaultValue={post.title} onChange={(e) => handleInputChanges(e)} name="title" className="form-control" placeholder="Edit title" />
           </div>
           <div className="form-group col-md-12">
             <label htmlFor="description"> Description </label>
-            <input type="text" id="message" defaultValue={post.message} onChange={(e) => handleInputChanges(e)} name="description" className="form-control" placeholder="Enter Description" />
+            <input type="text" id="description" defaultValue={post.description} onChange={(e) => handleInputChanges(e)} name="description" className="form-control" placeholder="Edit Description" />
           </div>
           <div className="form-group col-md-12">
-            <label htmlFor="body"> Write a comment </label>
-            <input type="text" id="comment" defaultValue={post.comment.comment} onChange={(e) => handleInputChanges(e)} name="body" className="form-control" placeholder="Enter content" />
+            <label htmlFor="description"> Image </label>
+            <input type="text" id="image" defaultValue={post.image} onChange={(e) => handleInputChanges(e)} name="image" className="form-control" placeholder="Edit Image Address" />
+          </div>
+          <div className="form-group col-md-12">
+            <label htmlFor="body"> Change your Story </label>
+            <input type="text" id="StoryBox" defaultValue={post.content} onChange={(e) => handleInputChanges(e)} name="content" className="form-control" placeholder="Story Time" />
           </div>
           <div className="form-group col-md-4 pull-right">
             <button className="btn btn-success" type="submit">

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '../contexts/auth0-context';
+import Search from './SearchBar';
+
 function Navbar() {
     const { isLoading, user, loginWithRedirect, logout, isAuthenticated } = useAuth0();
     return (
@@ -14,7 +16,7 @@ function Navbar() {
                     <i className="ion-navicon" />
                 </div>
                 <ul className="main-menu visible-on-click" id="main-menu">
-                    <li><Link className={"nav-link"} to={"/"}> Nest React TypeScript Blog </Link></li>
+                    <li><Link className={"nav-link"} to={"/map"}> Map View </Link></li>
                     <li>
                     <Link className={"nav-link"} to={"/"}>
                         {!isLoading && !user && (
@@ -40,6 +42,9 @@ function Navbar() {
                     {isAuthenticated && (
                     <li><Link className={"nav-link"} to={"/create"}> Create </Link></li>
                     )}
+                    <li>
+                        <Search />
+                    </li>
                 </ul>
             </div>
         </header>

@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
     
 function Post() {
   let { postId } = useParams();
-  const [post, setPost] = useState<any>({});
+  const [post, setPost] = useState<any>([]);
     
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
@@ -23,15 +23,25 @@ function Post() {
               {post && 
                 <div className="main-post">
                   <div className="post-top-area">
-                    <h5 className="pre-title">Nest React Blog</h5>
+                    <h5 className="pre-title">Well TravelD Blog</h5>
+                    <img className="blog-image" src={post.image} alt="BROKEN" />
                     <h3 className="title">
                       <span>
                         <b>{post.title}</b>
                       </span>
                     </h3>
-                    <p className="para">
-                      {post.body}
-                    </p>
+                      <span>
+                        <p className="para">
+                          {post.description}
+                        </p>
+                      </span>
+                    <div>
+                      <span>
+                        <p className="content">
+                          {post.content}
+                        </p>
+                      </span>
+                    </div>
                   </div>
                 </div>              
               }

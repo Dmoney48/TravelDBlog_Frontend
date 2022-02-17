@@ -61,6 +61,7 @@ export class Auth0Provider extends Component<{}, IState> {
         await this.state.auth0Client.handleRedirectCallback();
         const user = await this.state.auth0Client.getUser();
         this.setState({ user, isAuthenticated: true, isLoading: false });
+        //See if I can save user to localStorage HERE
         window.history.replaceState({}, document.title, window.location.pathname);
     };
     render() {

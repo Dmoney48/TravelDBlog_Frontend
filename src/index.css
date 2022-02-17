@@ -46,7 +46,48 @@ code {
   to { transform: rotate(360deg); }
 }
 
+.description{
+	height:200px;
+	font-size: 14px;	
+}
 
+.Author{
+	font:bolder;
+	position: relative;
+	bottom: -38px;
+	font-size:small;
+}
+.Date{
+	position: relative;
+	bottom: -42px;
+	font-size:xx-small;
+}
+
+#StoryBox{
+	height: 200px;
+}
+
+.content{
+	border:3px; 
+	border-style:solid; 
+	border-color:lightgreen; 
+	padding: 1em;
+}
+/* 
+#HomeRoute{
+	background-image:'public/HomeTravel.jpeg' ;
+}
+#EditRoute{
+	background-image:'public/EditTravel.jpeg' ;
+}
+#CreateRoute{
+	background-image:'public/CreateTravel.jpeg' ;
+} */
+/* body{
+	background-image: 'https://img1.10bestmedia.com/Images/Photos/372464/EF-Go-Ahead-Tours_54_990x660.jpg';
+	position:absolute;
+	z-index: 1000;
+} */
 
 /* From the new template
 ====================================================
@@ -453,3 +494,14 @@ Responsiveness from the new template
 
 
 }
+
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+  }
+  

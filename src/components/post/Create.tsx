@@ -8,6 +8,7 @@ function Create(): JSX.Element {
     
   interface IValues {
     [key: string]: any;
+    [key: number]: any;
   }
   const [author, setAuthor] = useState<string>('');
   const [values, setValues] = useState<IValues>([]);
@@ -25,8 +26,15 @@ function Create(): JSX.Element {
     const formData = {
       title: values.title,
       description: values.description,
-      body: values.body,
-      author
+      likes: values.likes,
+      dislikes: values.dislikes,
+      // latitude: Number,
+      // longitude: Number,
+      content: values.content,
+      // user: Object, //(ref to user ID)
+      author,
+      image: values.image,
+      date_posted: Date().toLocaleString()      
     }
     const submitSuccess: boolean = await submitform(formData);
     setSubmitSuccess(submitSuccess);
@@ -36,8 +44,12 @@ function Create(): JSX.Element {
       history('/');
     }, 1500);
   }
+
+
+  
     
   const submitform = async (formData: {}) => {
+    // console.log(formData)
     try {
       const accessToken = await getIdTokenClaims();
       const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/blog/post`, {
@@ -62,7 +74,7 @@ function Create(): JSX.Element {
     setFormValues({ [e.currentTarget.name]: e.currentTarget.value })
   }
   return (
-    <div>
+    <div id="CreateRoute">
     <div className={"col-md-12 form-wrapper"}>
       <h2> Create Post </h2>
       {!submitSuccess && (
@@ -78,15 +90,19 @@ function Create(): JSX.Element {
       <form id={"create-post-form"} onSubmit={handleFormSubmission} noValidate={true}>
         <div className="form-group col-md-12">
           <label htmlFor="title"> Title </label>
-          <input type="text" id="title" onChange={(e) => handleInputChanges(e)} name="title" className="form-control" placeholder="Enter title" />
+          <input type="text" id="title" onChange={(e) => handleInputChanges(e)} name="title" className="form-control" placeholder="Enter Title" />
         </div>
         <div className="form-group col-md-12">
           <label htmlFor="description"> Description </label>
           <input type="text" id="description" onChange={(e) => handleInputChanges(e)} name="description" className="form-control" placeholder="Enter Description" />
         </div>
         <div className="form-group col-md-12">
-          <label htmlFor="body"> Write Content </label>
-          <input type="text" id="body" onChange={(e) => handleInputChanges(e)} name="body" className="form-control" placeholder="Enter content" />
+          <label htmlFor="content"> Tell Your Story </label>
+          <input  type="text" id="StoryBox" onChange={(e) => handleInputChanges(e)} name="content" className="form-control" placeholder="Story Time" />
+        </div>
+        <div className="form-group col-md-12">
+          <label htmlFor="image"> Travel Picture </label>
+          <input type="text" id="image" onChange={(e) => handleInputChanges(e)} name="image" className="form-control" placeholder="Enter image address" />
         </div>
         <div className="form-group col-md-12">
           <label htmlFor="author"> Author </label>
