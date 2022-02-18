@@ -1,4 +1,5 @@
 {
+  "extends": "ts-config-single-spa",
   "compilerOptions": {
     "target": "es5",
     "lib": [
@@ -18,9 +19,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ]
   },
   "include": [
-    "src"
+    "src/**/*",
+    "typings/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

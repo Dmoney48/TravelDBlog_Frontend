@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '../contexts/auth0-context';
-import Search from './SearchBar';
+// import Search from './SearchBar';
 
 function Navbar() {
     const { isLoading, user, loginWithRedirect, logout, isAuthenticated } = useAuth0();
@@ -22,7 +22,7 @@ function Navbar() {
                     <li><Link className={"nav-link"} to={"/create"}> Create </Link></li>
                     )}
                     <li>
-                        <Search />
+                        {/* <Search /> */}
                     </li>
                     <li>
                         <Link className={"nav-link"} to={"/"}>

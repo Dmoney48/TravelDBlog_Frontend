@@ -10,6 +10,11 @@ function Create(): JSX.Element {
     [key: string]: any;
     [key: number]: any;
   }
+  interface FormData {
+    [key: string]: any;
+    [key: number]: any;
+  }
+
   const [author, setAuthor] = useState<string>('');
   const [values, setValues] = useState<IValues>([]);
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
@@ -48,10 +53,11 @@ function Create(): JSX.Element {
 
   
     
-  const submitform = async (formData: {}) => {
+  const submitform = async (formData: FormData) => {
     // console.log(formData)
     try {
       const accessToken = await getIdTokenClaims();
+      formData.author_email = accessToken.email
       const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/blog/post`, {
         method: "post",
         headers: new Headers({
@@ -100,7 +106,7 @@ function Create(): JSX.Element {
               </div>
               <div className="form-group col-md-12">
                 <label htmlFor="content"> Tell Your Story </label>
-                <input  type="text" id="StoryBox" onChange={(e) => handleInputChanges(e)} name="content" className="form-control" placeholder="Story Time" />
+                <input  type="textarea" id="StoryBox" onChange={(e) => handleInputChanges(e)} name="content" className="form-control" placeholder="Story Time" />
               </div>
               <div className="form-group col-md-12">
                 <label htmlFor="image"> Travel Picture </label>

@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth0 } from '../contexts/auth0-context';
-    
+import {SearchBar} from './SearchBar';
+
 function Home():JSX.Element {
   let history = useNavigate()
   const { isAuthenticated, getIdTokenClaims, user } = useAuth0();
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<any[]>([]);
   const [currUser, setCurrUser] = useState(
     localStorage.getItem('currUserInLocalStorage') || {}
   );
 
-    
+  const fetchPosts = async (): Promise<any> => {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/blog/posts`);
+    const json = await response.json();
+    setPosts(json)
+  }
+
   const deletePost = async(id: string) => {
     const accessToken = await getIdTokenClaims();
     await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/blog/delete?postID=${id}`, {
@@ -24,7 +30,15 @@ function Home():JSX.Element {
     _removePostFromView(id);
     history('/');
   }
-    
+  const filterPosts = (event: string): Array<any> => {
+    const results = posts?.filter((post) => post.title.toLowerCase().includes(event));
+    setPosts(results);
+    if(event === '') {
+      fetchPosts();
+    }
+    return results || null;
+  };
+
   const _removePostFromView = (id: string) => {
     //   console.log(posts);
       
@@ -33,23 +47,15 @@ function Home():JSX.Element {
   }
     
   useEffect(() => {
-    // console.log('hello');
-    // console.log(user)
-    // console.log(currUser)
     if(currUser == {}){
-      console.log(user)
       localStorage.setItem('currUserInLocalStorage', user )
     }
-    const fetchPosts = async (): Promise<any> => {
-      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/blog/posts`);
-      const json = await response.json();
-      setPosts(json)
-    }
     fetchPosts();
-  }, [])
+  }, [user])
 
   return (
     <section id="HomeRoute" className="blog-area section">
+      <SearchBar posts={posts} filterPosts={filterPosts} />
     <div className="container">
         <p></p>
       <div className="row">
