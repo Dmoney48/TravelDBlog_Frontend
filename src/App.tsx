@@ -13,7 +13,7 @@ function App(): JSX.Element {
   return (
     <div className="App">
     <Navbar />
-      <div className={'container'}>
+      <div className={'container-fluid'}>
         <Routes>
           <Route path="/*" element={<Home/>} />
           <Route path={"/map"} element={<MapBoxMap/>}/>
