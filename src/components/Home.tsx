@@ -5,6 +5,7 @@ import {SearchBar} from './SearchBar';
 
 function Home():JSX.Element {
   let history = useNavigate()
+  const defaultPic:string = 'https://images.ctfassets.net/23aumh6u8s0i/5RgCRgruCESPZUobN5RL6G/a8082500f2e6dc7fb4007c0cdfd0cbe3/WEB_FREAK_50PX-01_yaqxg7';
   const { isAuthenticated, getIdTokenClaims, user } = useAuth0();
   const [posts, setPosts] = useState<any[]>([]);
   const [currUser, setCurrUser] = useState(
@@ -59,7 +60,7 @@ function Home():JSX.Element {
     <div className="container">
         <p></p>
       <div className="row">
-        {posts && posts.map((post: { title: React.ReactNode; _id: any; author: any; image: any; date_posted:any}) => (
+        {posts && posts.map((post: { title: React.ReactNode; _id: any; author: any; image: any; date_posted:any, user_picture: string}) => (
           <div className="col-lg-4 col-md-6" key={post._id}>
           <div className="card h-100">
             <div className="single-post post-style-1">
@@ -67,7 +68,11 @@ function Home():JSX.Element {
                 <img src={post.image} alt="Blog" />
               </div>
               <span className="avatar">
-                <img src="https://images.ctfassets.net/23aumh6u8s0i/5RgCRgruCESPZUobN5RL6G/a8082500f2e6dc7fb4007c0cdfd0cbe3/WEB_FREAK_50PX-01_yaqxg7" alt="Profile" />
+                  {!user ? (
+                    <img src={defaultPic} alt="Profile" />) 
+                    :
+                    (<img src={post.user_picture} alt="Profile" /> 
+                  )}
                 {/* CHANGE IMAGE TO USER PROFILE IMAGE */}
               </span>
               <div className="blog-info">

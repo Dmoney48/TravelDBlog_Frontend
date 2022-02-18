@@ -58,6 +58,7 @@ function Create(): JSX.Element {
     try {
       const accessToken = await getIdTokenClaims();
       formData.author_email = accessToken.email
+      formData.user_picture = accessToken.picture
       const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/blog/post`, {
         method: "post",
         headers: new Headers({
@@ -81,6 +82,7 @@ function Create(): JSX.Element {
   }
   return (
     <div id="CreateRoute">
+      <div id="bgImageCreateRoute"></div>
     <div className={"col-md-6"}>
       {/* {!submitSuccess && (
         <div className="alert alert-info" role="alert">

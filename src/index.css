@@ -73,8 +73,18 @@ code {
 	border-color:lightgreen; 
 	padding: 1em;
 }
-#CreateRoute {
+#CreateRoute, #EditRoute {
 	margin-top: 1rem;
+}
+#bgImageCreateRoute {
+	height: 100vh;
+	width: 100%;
+	background-image: url('../public/HomeTravel.jpeg');
+	background-repeat: no-repeat;
+  	background-size: cover;
+	position: absolute;
+	top: 63px;
+	left: 0px;
 }
 /* 
 #HomeRoute{
