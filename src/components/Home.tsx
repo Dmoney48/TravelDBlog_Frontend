@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth0 } from '../contexts/auth0-context';
-    
+import {SearchBar} from './SearchBar';
+
 function Home():JSX.Element {
   let history = useNavigate()
+  const defaultPic:string = 'https://images.ctfassets.net/23aumh6u8s0i/5RgCRgruCESPZUobN5RL6G/a8082500f2e6dc7fb4007c0cdfd0cbe3/WEB_FREAK_50PX-01_yaqxg7';
   const { isAuthenticated, getIdTokenClaims, user } = useAuth0();
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<any[]>([]);
   const [currUser, setCurrUser] = useState(
     localStorage.getItem('currUserInLocalStorage') || {}
   );
 
-    
+  const fetchPosts = async (): Promise<any> => {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/blog/posts`);
+    const json = await response.json();
+    setPosts(json)
+  }
+
   const deletePost = async(id: string) => {
     const accessToken = await getIdTokenClaims();
     await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/blog/delete?postID=${id}`, {
@@ -24,7 +31,15 @@ function Home():JSX.Element {
     _removePostFromView(id);
     history('/');
   }
-    
+  const filterPosts = (event: string): Array<any> => {
+    const results = posts?.filter((post) => post.title.toLowerCase().includes(event));
+    setPosts(results);
+    if(event === '') {
+      fetchPosts();
+    }
+    return results || null;
+  };
+
   const _removePostFromView = (id: string) => {
     //   console.log(posts);
       
@@ -33,27 +48,19 @@ function Home():JSX.Element {
   }
     
   useEffect(() => {
-    // console.log('hello');
-    // console.log(user)
-    // console.log(currUser)
     if(currUser == {}){
-      console.log(user)
       localStorage.setItem('currUserInLocalStorage', user )
     }
-    const fetchPosts = async (): Promise<any> => {
-      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/blog/posts`);
-      const json = await response.json();
-      setPosts(json)
-    }
     fetchPosts();
-  }, [])
+  }, [user])
 
   return (
     <section id="HomeRoute" className="blog-area section">
+      <SearchBar posts={posts} filterPosts={filterPosts} />
     <div className="container">
         <p></p>
       <div className="row">
-        {posts && posts.map((post: { title: React.ReactNode; _id: any; author: any; image: any; date_posted:any}) => (
+        {posts && posts.map((post: { title: React.ReactNode; _id: any; author: any; image: any; date_posted:any, user_picture: string}) => (
           <div className="col-lg-4 col-md-6" key={post._id}>
           <div className="card h-100">
             <div className="single-post post-style-1">
@@ -61,7 +68,11 @@ function Home():JSX.Element {
                 <img src={post.image} alt="Blog" />
               </div>
               <span className="avatar">
-                <img src="https://images.ctfassets.net/23aumh6u8s0i/5RgCRgruCESPZUobN5RL6G/a8082500f2e6dc7fb4007c0cdfd0cbe3/WEB_FREAK_50PX-01_yaqxg7" alt="Profile" />
+                  {!user ? (
+                    <img src={defaultPic} alt="Profile" />) 
+                    :
+                    (<img src={post.user_picture} alt="Profile" /> 
+                  )}
                 {/* CHANGE IMAGE TO USER PROFILE IMAGE */}
               </span>
               <div className="blog-info">

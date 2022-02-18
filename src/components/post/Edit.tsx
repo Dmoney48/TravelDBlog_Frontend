@@ -108,39 +108,43 @@ function Edit(): JSX.Element {
   return (
     <div id="EditRoute" className={'page-wrapper'}>
     {post &&
-      <div className={"col-md-12 form-wrapper"}>
-        <h2> Edit Post  </h2>
+      <div className={"col-md-6"}>
         {submitSuccess && (
           <div className="alert alert-info" role="alert">
             The post has been edited successfully!
                         </div>
         )}
-        <form id={"create-post-form"} onSubmit={handleFormSubmission} noValidate={true}>
-          <div className="form-group col-md-12">
-            <label htmlFor="title"> Title </label>
-            <input type="text" id="title" defaultValue={post.title} onChange={(e) => handleInputChanges(e)} name="title" className="form-control" placeholder="Edit title" />
+          <div className="card">
+            <div className="card-body">
+              <h5 className="card-title">Edit Post</h5>
+              <form id={"create-post-form"} onSubmit={handleFormSubmission} noValidate={true}>
+                <div className="form-group col-md-12">
+                  <label htmlFor="title"> Title </label>
+                  <input type="text" id="title" defaultValue={post.title} onChange={(e) => handleInputChanges(e)} name="title" className="form-control" placeholder="Edit title" />
+                </div>
+                <div className="form-group col-md-12">
+                  <label htmlFor="description"> Description </label>
+                  <input type="text" id="description" defaultValue={post.description} onChange={(e) => handleInputChanges(e)} name="description" className="form-control" placeholder="Edit Description" />
+                </div>
+                <div className="form-group col-md-12">
+                  <label htmlFor="description"> Image </label>
+                  <input type="text" id="image" defaultValue={post.image} onChange={(e) => handleInputChanges(e)} name="image" className="form-control" placeholder="Edit Image Address" />
+                </div>
+                <div className="form-group col-md-12">
+                  <label htmlFor="body"> Change your Story </label>
+                  <input type="text" id="StoryBox" defaultValue={post.content} onChange={(e) => handleInputChanges(e)} name="content" className="form-control" placeholder="Story Time" />
+                </div>
+                <div className="form-group col-md-4 pull-right">
+                  <button className="btn btn-primary float-right" type="submit">
+                    Edit Post
+                  </button>
+                  {loading &&
+                    <span className="fa fa-circle-o-notch fa-spin" />
+                  }
+                </div>
+              </form>
           </div>
-          <div className="form-group col-md-12">
-            <label htmlFor="description"> Description </label>
-            <input type="text" id="description" defaultValue={post.description} onChange={(e) => handleInputChanges(e)} name="description" className="form-control" placeholder="Edit Description" />
-          </div>
-          <div className="form-group col-md-12">
-            <label htmlFor="description"> Image </label>
-            <input type="text" id="image" defaultValue={post.image} onChange={(e) => handleInputChanges(e)} name="image" className="form-control" placeholder="Edit Image Address" />
-          </div>
-          <div className="form-group col-md-12">
-            <label htmlFor="body"> Change your Story </label>
-            <input type="text" id="StoryBox" defaultValue={post.content} onChange={(e) => handleInputChanges(e)} name="content" className="form-control" placeholder="Story Time" />
-          </div>
-          <div className="form-group col-md-4 pull-right">
-            <button className="btn btn-success" type="submit">
-              Edit Post
-            </button>
-            {loading &&
-              <span className="fa fa-circle-o-notch fa-spin" />
-            }
-          </div>
-        </form>
+        </div>
       </div>
     }
   </div>

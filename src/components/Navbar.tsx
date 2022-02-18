@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '../contexts/auth0-context';
-import Search from './SearchBar';
+// import Search from './SearchBar';
 
 function Navbar() {
     const { isLoading, user, loginWithRedirect, logout, isAuthenticated } = useAuth0();
@@ -17,33 +17,33 @@ function Navbar() {
                 </div>
                 <ul className="main-menu visible-on-click" id="main-menu">
                     <li><Link className={"nav-link"} to={"/map"}> Map View </Link></li>
-                    <li>
-                    <Link className={"nav-link"} to={"/"}>
-                        {!isLoading && !user && (
-                            <>
-                                <button className="btn btn-dark" onClick={loginWithRedirect}>
-                                    Sign In
-                                </button>
-                            </>
-                        )}
-                        {!isLoading && user && (
-                            <>
-                                <div>
-                                    <label className="mr-2">{user.name}</label>
-                                    <button className="btn btn-dark" onClick={() => logout({ returnTo: window.location.origin })}>
-                                        Sign Out 
-                                    </button>
-                                </div>
-                            </>
-                        )}
-                    </Link>
-                    </li>
                     <li><Link className={"nav-link"} to={"/"}> Home </Link></li>
                     {isAuthenticated && (
                     <li><Link className={"nav-link"} to={"/create"}> Create </Link></li>
                     )}
                     <li>
-                        <Search />
+                        {/* <Search /> */}
+                    </li>
+                    <li>
+                        <Link className={"nav-link"} to={"/"}>
+                            {!isLoading && !user && (
+                                <>
+                                    <button className="btn btn-dark" onClick={loginWithRedirect}>
+                                        Sign In
+                                    </button>
+                                </>
+                            )}
+                            {!isLoading && user && (
+                                <>
+                                    <div>
+                                        <label className="mr-2">{user.name}</label>
+                                        {/* <button className="btn btn-dark" onClick={() => logout({ returnTo: window.location.origin })}>
+                                            Sign Out
+                                        </button> */}
+                                    </div>
+                                </>
+                            )}
+                        </Link>
                     </li>
                 </ul>
             </div>

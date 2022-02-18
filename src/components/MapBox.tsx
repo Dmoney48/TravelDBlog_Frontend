@@ -1,6 +1,7 @@
 import * as React from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css"; 
+import './MapBox.css'; 
 // import the mapbox-gl styles so that the map is displayed correctly
 
 function MapboxMap() {
@@ -36,7 +37,7 @@ function MapboxMap() {
     };
   }, []);
 
-    return <div ref={mapNode} style={{ width: "100%", height: "100%" }} />;
+    return <div id="mapContainer"><div ref={mapNode} style={{ width: "100%", height: "100%" }} /></div>;
 }
 
 export default MapboxMap
