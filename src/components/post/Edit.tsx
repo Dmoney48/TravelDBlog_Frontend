@@ -107,6 +107,7 @@ function Edit(): JSX.Element {
   
   return (
     <div id="EditRoute" className={'page-wrapper'}>
+      <div id="bgImageEditRoute"></div>
     {post &&
       <div className={"col-md-6"}>
         {submitSuccess && (

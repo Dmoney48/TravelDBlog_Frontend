@@ -37,9 +37,9 @@ function Navbar() {
                                 <>
                                     <div>
                                         <label className="mr-2">{user.name}</label>
-                                        {/* <button className="btn btn-dark" onClick={() => logout({ returnTo: window.location.origin })}>
+                                        <button className="btn btn-dark" onClick={() => logout({ returnTo: window.location.origin })}>
                                             Sign Out
-                                        </button> */}
+                                        </button>
                                     </div>
                                 </>
                             )}

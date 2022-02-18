@@ -16,6 +16,7 @@ function Post() {
     
     return (
         <section className="post-area">
+        <div id="bgImagePostRoute"></div>
         <div className="container">
           <div className="row">
             <div className="col-lg-1 col-md-0" />

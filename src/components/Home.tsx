@@ -58,9 +58,9 @@ function Home():JSX.Element {
     <section id="HomeRoute" className="blog-area section">
       <SearchBar posts={posts} filterPosts={filterPosts} />
     <div className="container">
-        <p></p>
+    <div id="bgImageHomeRoute"></div>
       <div className="row">
-        {posts && posts.map((post: { title: React.ReactNode; _id: any; author: any; image: any; date_posted:any, user_picture: string}) => (
+        {posts && posts.map((post: { title: React.ReactNode; _id: any; author: any; image: any; date_posted:any, user_picture: string, description: string}) => (
           <div className="col-lg-4 col-md-6" key={post._id}>
           <div className="card h-100">
             <div className="single-post post-style-1">
@@ -68,7 +68,7 @@ function Home():JSX.Element {
                 <img src={post.image} alt="Blog" />
               </div>
               <span className="avatar">
-                  {!user ? (
+                  {!post.user_picture ? (
                     <img src={defaultPic} alt="Profile" />) 
                     :
                     (<img src={post.user_picture} alt="Profile" /> 
@@ -81,9 +81,12 @@ function Home():JSX.Element {
                     <b>{post.title}</b>
                   </span>
                 </h4>
+                  <span>
+                    <b>{post.description}</b>
+                  </span>
                 <p className="Author">
                   <span>
-                    Author: {post.author}
+                    Author:<b>{post.author}</b>
                   </span>
                 </p>
                 <p className="Date">
@@ -95,19 +98,19 @@ function Home():JSX.Element {
             </div>
             <ul className="post-footer">
               <li>
-                <Link to={`/post/${post._id}`} className="btn btn-sm btn-outline-secondary">View Post </Link>
+                <Link to={`/post/${post._id}`} className="btn btn-sm btn-outline-info">View Post </Link>
               </li>
               <li>
                 
                     {/* {console.log(post.author)} */}
                
-                  <Link to={`/edit/${post._id}`} className="btn btn-sm btn-outline-secondary">Edit Post </Link>
+                  <Link to={`/edit/${post._id}`} className="btn btn-sm btn-outline-success">Edit Post </Link>
                 
               </li>
               <li>
                 {
                 //   isAuthenticated && (user.name === post.author) &&
-                  <button className="btn btn-sm btn-outline-secondary" onClick={() => deletePost(post._id)}>Delete Post</button>
+                  <button className="btn btn-sm btn-outline-danger" onClick={() => deletePost(post._id)}>Delete Post</button>
                 }
               </li>
             </ul>

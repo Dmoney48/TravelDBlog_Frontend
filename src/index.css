@@ -73,34 +73,58 @@ code {
 	border-color:lightgreen; 
 	padding: 1em;
 }
-#CreateRoute, #EditRoute {
+#CreateRoute, #EditRoute, #HomeRoute {
 	margin-top: 1rem;
 }
 #bgImageCreateRoute {
+	height: 100vh;
+	width: 100%;
+	background-image: url('../public/CreateTravel.jpeg');
+	background-repeat: no-repeat;
+  	background-size: cover;
+	position: absolute;
+	top: 64px;
+	left: 0px;
+}
+
+#bgImageEditRoute {
+	height: 100vh;
+	width: 100%;
+	background-image: url('../public/EditTravel.jpeg');
+	background-repeat: no-repeat;
+  	background-size: cover;
+	position: absolute;
+	top: 64px;
+	left: 0px;
+}
+
+#bgImageHomeRoute {
 	height: 100vh;
 	width: 100%;
 	background-image: url('../public/HomeTravel.jpeg');
 	background-repeat: no-repeat;
   	background-size: cover;
 	position: absolute;
-	top: 63px;
+	top: 64px;
 	left: 0px;
 }
-/* 
-#HomeRoute{
-	background-image:'public/HomeTravel.jpeg' ;
+
+#bgImagePostRoute {
+	height: 100vh;
+	width: 100%;
+	background-image: url('../public/PostTravel.jpeg');
+	background-repeat: no-repeat;
+  	background-size: cover;
+	position: absolute;
+	top: 64px;
+	left: 0px;
 }
-#EditRoute{
-	background-image:'public/EditTravel.jpeg' ;
+
+.blog-image{
+	width: 100%;
+	max-height: 600px;
 }
-#CreateRoute{
-	background-image:'public/CreateTravel.jpeg' ;
-} */
-/* body{
-	background-image: 'https://img1.10bestmedia.com/Images/Photos/372464/EF-Go-Ahead-Tours_54_990x660.jpg';
-	position:absolute;
-	z-index: 1000;
-} */
+
 
 /* From the new template
 ====================================================
